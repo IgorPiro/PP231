@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <title>Пользователи</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        table {
+            width: 100%;
+            max-width: 600px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead th {
+            font-weight: bold;
+            text-align: left;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 14px;
+        }
+
+        thead th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        thead th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+
+        tbody td {
+            padding: 12px;
+            font-size: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        tbody td:first-child {
+            border-radius: 0 0 0 8px;
+        }
+
+        tbody td:last-child {
+            border-radius: 0 0 8px 0;
+        }
+
+        .btn-link {
+            border: none;
+            outline: none;
+            background: none;
+            cursor: pointer;
+            color: #0000EE;
+            padding: 0;
+            text-decoration: underline;
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        .options {
+            display: flex;
+            gap: 10px;
+        }
+
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+<h1>Список пользователей</h1>
+<a href="/add">Добавить нового пользователя</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Возраст</th>
+        <th>Опции</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="user : ${users}">
+        <tr>
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.age}"></td>
+            <td class="options">
+                <a th:href="@{/edit(id=${user.id})}" th:text="Изменить"></a>
+                <form th:action="@{/delete/(id=${user.id})}" th:method="post">
+                    <button type="submit" class="btn-link">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
